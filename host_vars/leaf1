@@ -1,0 +1,35 @@
+mlag_domain_id: MLAG_LEAF1_LEAF2
+mlag_peer_ip: 172.31.94.2
+bgp_as: 65001
+bgp_rid: 192.168.254.11
+bgp_lvtep_net: 172.31.1.1
+
+interfaces_create:
+  - { interface: Loopback0 }
+  - { interface: Loopback1 }
+  - { interface: Vlan4093 }
+  - { interface: Vlan4094 }
+
+interfaces_ip:
+  - { interface: Loopback0, ip: 192.168.254.11/32 }
+  - { interface: Loopback1, ip: 172.31.1.1/32 }
+  - { interface: Vlan4093, ip:  172.31.93.1/30 }
+  - { interface: Vlan4094, ip: 172.31.94.1/30 }
+  - { interface: Ethernet3, ip: 192.168.1.2/30 }
+  - { interface: Ethernet4, ip: 192.168.2.2/30 }
+
+bgp_neighbors:
+  - { bgp_peer_ip: 192.168.1.1, bgp_peer_as: 65000 }
+  - { bgp_peer_ip: 192.168.2.1, bgp_peer_as: 65000 }
+  - { bgp_peer_ip: 172.31.93.2, bgp_peer_as: 65001 }
+
+bgp_networks:
+  - { bgp_net: 192.168.254.11, bgp_mask: 32 }
+  - { bgp_net: 172.31.1.1, bgp_mask: 32 }
+
+vxlan_vni:
+  - { vlan: 10, vni: 1010 }
+  - { vlan: 20, vni: 1020 }
+
+vxlan_floodlist:
+  - { vtep: Vxlan1, flood_list: "172.31.1.3" }

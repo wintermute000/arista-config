@@ -1,0 +1,25 @@
+[leaf_switches]
+leaf1
+leaf2
+leaf3
+leaf4
+
+[spine_switches]
+spine1
+spine2
+
+[spine_switches:vars]
+ansible_ssh_user=ansible
+# Used for eapi connection once SSH'd in
+username=cisco
+password=cisco
+enablepwd=cisco
+transport=https
+
+[leaf_switches:vars]
+ansible_ssh_user=ansible
+# Used for eapi connection once SSH'd in
+username=cisco
+password=cisco
+enablepwd=cisco
+transport=https

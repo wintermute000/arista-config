@@ -1,0 +1,23 @@
+vlans_create:
+  - { vlan_id: 4094, name: MLAG-peering, trunk_group: "TG_MLAG" }
+  - { vlan_id: 4093, name: IBGP-peering, trunk_group: "TG_IBGP" }
+  - { vlan_id: 10, name: VLAN10, trunk_group: "TG_10" }
+  - { vlan_id: 20, name: VLAN20, trunk_group: "TG_20" }
+
+portchannels_create:
+  - {  portchannel: Port-Channel1, lacpmode: active, members: "Ethernet1,Ethernet2" }
+  - {  portchannel: Port-Channel6, lacpmode: active, members: "Ethernet6" }
+  - {  portchannel: Port-Channel7, lacpmode: active, members: "Ethernet7" }
+
+switchports:
+  - {  switchport: Port-Channel1, mode: trunk, tg: "TG_IBGP,TG_MLAG" }
+  - {  switchport: Port-Channel6, mode: trunk, tg: "TG_20" }
+  - {  switchport: Port-Channel7, mode: trunk, tg: "TG_10" }
+
+mlags_create:
+  - { mlag_members: "Port-Channel6", mlag_id: "6" }
+  - { mlag_members: "Port-Channel7", mlag_id: "7" }
+
+mlag_switchports:
+  - { portchannel: "Port-Channel6", tg: "TG-20" }
+  - { portchannel: "Port-Channel7", tg: "TG-10" }

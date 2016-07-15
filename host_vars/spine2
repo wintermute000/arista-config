@@ -1,0 +1,25 @@
+bgp_as: 65000
+bgp_rid: 192.168.254.2
+
+interfaces_create:
+  - { interface: Loopback0 }
+
+interfaces_ip:
+  - { interface: Loopback0, ip: 192.168.254.2/32 }
+  - { interface: Ethernet3, ip: 192.168.2.1/30 }
+  - { interface: Ethernet4, ip: 192.168.2.5/30 }
+  - { interface: Ethernet5, ip: 192.168.2.9/30 }
+  - { interface: Ethernet6, ip: 192.168.2.13/30 }
+
+bgp_neighbors:
+  - { bgp_peer_ip: 192.168.2.2, bgp_peer_as: 65001 }
+  - { bgp_peer_ip: 192.168.2.6, bgp_peer_as: 65001 }
+  - { bgp_peer_ip: 192.168.2.10, bgp_peer_as: 65003 }
+  - { bgp_peer_ip: 192.168.2.14, bgp_peer_as: 65003 }
+
+bgp_networks:
+  - { bgp_net: 192.168.254.2, bgp_mask: 32 }
+  - { bgp_net: 192.168.2.0, bgp_mask: 30 }
+  - { bgp_net: 192.168.2.4, bgp_mask: 30 }
+  - { bgp_net: 192.168.2.8, bgp_mask: 30 }
+  - { bgp_net: 192.168.2.12, bgp_mask: 30 }
