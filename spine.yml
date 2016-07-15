@@ -1,0 +1,7 @@
+- hosts: spine_switches
+  gather_facts: no
+  connection: local
+
+  roles:
+    - configure_layer3
+    - configure_BGP

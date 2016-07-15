@@ -1,0 +1,10 @@
+- hosts: leaf_switches
+  gather_facts: no
+  connection: local
+
+  roles:
+    - configure_layer2
+    - configure_layer3
+    - configure_BGP
+    - configure_MLAG
+    - configure_VXLAN

@@ -1,0 +1,8 @@
+  - name: enable BGP routing
+    eos_bgp_config: bgp_as={{ bgp_as }} state=present enable=yes router_id={{ bgp_rid }} connection={{ inventory_hostname }}
+  - name: configure BGP neighbors
+    eos_bgp_neighbor: name={{ item.bgp_peer_ip }} enable=yes remote_as={{ item.bgp_peer_as }} connection={{ inventory_hostname }}
+    with_items: "{{ bgp_neighbors | default([]) }}"
+  - name: configure BGP network advertisements
+    eos_bgp_network: prefix={{ item.bgp_net }} masklen={{ item.bgp_mask }} connection={{ inventory_hostname }}
+    with_items: "{{ bgp_networks | default([]) }}"

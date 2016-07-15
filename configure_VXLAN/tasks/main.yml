@@ -1,0 +1,8 @@
+  - name: Configure VXLAN interface
+    eos_vxlan: name=Vxlan1 state=present enable=yes source_interface=Loopback1 connection={{ inventory_hostname }}
+  - name: create a new vlan to vni mapping
+    eos_vxlan_vlan: name=Vxlan1 state=present vlan={{item.vlan }} vni={{ item.vni }} connection={{ inventory_hostname }}
+    with_items: "{{ vxlan_vni }}"
+  - name: Ensures that VTEPs are in the global flood list
+    eos_vxlan_vtep: name={{ item.vtep }} state=present vtep={{ item.flood_list }} connection={{ inventory_hostname }}
+    with_items: "{{ vxlan_floodlist }}"

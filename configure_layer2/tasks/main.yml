@@ -1,0 +1,9 @@
+  - name: Create VLANs
+    eos_vlan: vlanid={{ item.vlan_id }} name={{ item.name }} trunk_groups={{ item.trunk_group }} connection="{{ inventory_hostname }}"
+    with_items: "{{ vlans_create | default([]) }}"
+  - name: Create Port-channels
+    eos_portchannel: name={{ item.portchannel }} members={{ item.members }} lacp_mode={{ item.lacpmode }} connection="{{ inventory_hostname }}"
+    with_items: "{{ portchannels_create | default([]) }}"
+  - name: Configure Switchport settings
+    eos_switchport: name={{ item.switchport }} mode={{ item.mode }} trunk_groups={{ item.tg }} connection="{{ inventory_hostname }}"
+    with_items: "{{ switchports | default([]) }}"

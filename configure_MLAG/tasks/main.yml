@@ -1,0 +1,13 @@
+  - name: Configure MLAG domain-id
+    eos_mlag_config: domain_id={{ mlag_domain_id }} connection={{ inventory_hostname }}
+
+  - name: Configure the peer address, peer-link and local interface
+    eos_mlag_config: peer_address={{ mlag_peer_ip }} local_interface=Vlan4094 peer_link=Port-Channel1 connection={{ inventory_hostname }}
+
+  - name: Create MLAGs
+    eos_mlag_interface: name={{ item.mlag_members }} state=present mlag_id={{ item.mlag_id }} connection={{ inventory_hostname }}
+    with_items: "{{ mlags_create | default([]) }}"
+
+  - name: Configure MLAG switchport parameters
+    eos_switchport: name={{ item.portchannel }} mode=trunk trunk_groups= {{ item.tg }} connection="{{ inventory_hostname }}"
+    with_items: "{{ mlag_switchports | default([]) }}"

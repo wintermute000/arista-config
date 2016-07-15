@@ -1,0 +1,10 @@
+  - name: Enables IP routing
+    eos_system: ip_routing=yes connection={{ inventory_hostname }}
+
+  - name: Create Loopbacks and SVIs
+    eos_interface: name={{ item.interface }} state=present enable=yes connection={{ inventory_hostname }}
+    with_items: "{{ interfaces_create | default([]) }}"
+
+  - name: Configure IP Addresses
+    eos_ipinterface: name={{ item.interface }} state=present address={{ item.ip}} connection={{ inventory_hostname }}
+    with_items: "{{ interfaces_ip | default([]) }}"
