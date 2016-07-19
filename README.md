@@ -7,6 +7,8 @@ Tested with vEOS 4.15.5M in Unetlab 1.0.0-12 and Ansible 1.9, 2.1
 
 http://ansible-eos.readthedocs.io/en/master/quickstart.html
 
+NOTE: MISSING ECMP SETTING IN BGP
+
 ### SAMPLE TOPOLOGY VARIABLES ###
 - routed
 - eBGP - spine AS 65000, leaf1/2 AS65001, leaf3/4 AS65003
